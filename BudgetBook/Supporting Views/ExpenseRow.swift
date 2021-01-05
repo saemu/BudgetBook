@@ -21,7 +21,7 @@ struct ExpenseRow: View {
             }
 
             Spacer()
-            Text(item.amountString)
+            Text(item.formattedAmount)
         }
     }
 }

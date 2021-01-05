@@ -18,17 +18,17 @@ struct AddExpense: View {
 
     @State private var showCalendar = false
 
+    func toggleCalendar() {
+        showCalendar.toggle()
+    }
+
     var body: some View {
         NavigationView {
             Form {
                 TextField("Name", text: $name)
                 TextField("Amount", text: $amount)
                     .keyboardType(.decimalPad)
-                Button {
-                    self.showCalendar.toggle()
-                } label: {
-                    Text(dateString())
-                }
+                Button(dateString(), action: toggleCalendar)
                 if self.showCalendar {
                     DatePicker("Select date", selection: $date, displayedComponents: .date)
                         .datePickerStyle(GraphicalDatePickerStyle())

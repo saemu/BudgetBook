@@ -30,7 +30,7 @@ struct ExpenseView: View {
     var body: some View {
         Form {
             Section(header: Text("Details")) {
-                RowItem(description: "Amount", value: expense.amountString)
+                RowItem(description: "Amount", value: expense.formattedAmount)
                 RowItem(description: "Date", value: expense.formattedDate)
             }
             .navigationBarTitle(Text(expense.description), displayMode: .inline)

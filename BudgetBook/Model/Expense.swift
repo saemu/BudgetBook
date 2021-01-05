@@ -23,7 +23,7 @@ struct Expense: Codable, Identifiable, Comparable {
         return lhs.date < rhs.date && lhs.amount < rhs.amount
     }
 
-    var amountString: String {
+    var formattedAmount: String {
         let currencyFormatter = NumberFormatter()
         currencyFormatter.numberStyle = .currency
         let amountString = currencyFormatter.string(from: NSNumber(value: self.amount))
