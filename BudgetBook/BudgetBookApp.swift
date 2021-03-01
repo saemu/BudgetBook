@@ -11,7 +11,8 @@ import SwiftUI
 struct BudgetBookApp: App {
     var body: some Scene {
         WindowGroup {
-            BudgetBook()
+            let budgetBook = BudgetBook()
+            BudgetBookView(budgetBook: budgetBook)
         }
     }
 }

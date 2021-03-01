@@ -1,50 +1,32 @@
 //
-//  ContentView.swift
+//  BudgetBook.swift
 //  BudgetBook
 //
-//  Created by Samuel Brand on 26.09.20.
+//  Created by Samuel Brand on 06.01.21.
 //
 
 import SwiftUI
 
-struct BudgetBook: View {
-    @ObservedObject var expenses = Expenses()
+class BudgetBook: ObservableObject {
+    @Published private var expenses: Expenses
 
-    @State private var showingAddExpense = false
-
-    var body: some View {
-        NavigationView {
-            List {
-                ForEach(expenses.items.sorted(by: >)) { item in
-                    NavigationLink(destination: ExpenseView(expense: item)) {
-                        ExpenseRow(item: item)
-                    }
-                }
-                .onDelete(perform: removeItems)
-            }
-            .navigationBarTitle("Budget Book")
-            .navigationBarItems(leading: EditButton()
-                                    .disabled(expenses.items.isEmpty),
-                                trailing:
-                                    Button {
-                                        self.showingAddExpense.toggle()
-                                    } label: {
-                                        Image(systemName: "plus.circle")
-                                    }
-            )
-            .sheet(isPresented: $showingAddExpense) {
-                AddExpense(expenses: self.expenses)
-            }
-        }
+    init() {
+        expenses = Expenses()
     }
 
-    func removeItems(at offset: IndexSet) {
+    var expenseItems: [Expense] {
+        expenses.items
+    }
+
+    func hasExpense() -> Bool {
+        expenses.isEmpty()
+    }
+
+    func addExpense(_ expense: Expense) {
+        expenses.addItem(expense)
+    }
+
+    func removeExpense(_ offset: IndexSet) {
         expenses.items.remove(atOffsets: offset)
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        BudgetBook()
     }
 }
